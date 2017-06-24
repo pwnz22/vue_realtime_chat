@@ -8,7 +8,8 @@
   export default {
     props: {
       large: Boolean,
-      disabled: Boolean
+      disabled: Boolean,
+      inverted: Boolean
     },
     computed: {
       classNames () {
@@ -20,6 +21,10 @@
 
         if (this.disabled) {
           classNames.push('button--disabled')
+        }
+
+        if (this.inverted) {
+          classNames.push('button--inverted')
         }
 
         return classNames
@@ -46,6 +51,18 @@
     &--disabled {
       cursor: not-allowed;
       opacity: .5;
+    }
+
+    &--inverted {
+      background-color: #000;
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 6px 8px;
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
     }
   }
 </style>
