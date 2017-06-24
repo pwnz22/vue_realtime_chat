@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <form @submit.prevent="join(room, username)">
-      <input type="text" placeholder="Room" v-model="room">
-      <input type="text" placeholder="username" v-model="username">
-      <button type="submit" :disabled="!isValid">join</button>
+  <div class="section section--black section--full">
+    <form @submit.prevent="join(room, username)" class="form">
+      <div class="form__group">
+        <input type="text" class="form__input form__input--large" placeholder="room" v-model="room">
+      </div>
+      <div class="form__group">
+        <input type="text" class="form__input form__input--large" placeholder="username" v-model="username">
+      </div>
+      <div class="form__group">
+        <button class="button button--large" :class="{ 'button--disabled': !isValid }" type="submit">join</button>
+      </div>
     </form>
   </div>
 </template>
