@@ -6,7 +6,7 @@
       </v-form-group>
     </v-section>
 
-    <v-section color="white" full>
+    <v-section color="white" full ref="messages">
       <v-message v-for="item in $store.state.messages" :key="item" :is-self="$store.state.username === item.username">
         <v-message-user v-if="$store.state.username !== item.username">
           {{ item.username }}
@@ -20,7 +20,7 @@
     <v-section color="black">
       <v-form @submit.prevent.native="sendMessage(message)" inline>
         <v-form-group inline full-width>
-          <v-form-input v-model="message" placeholder="message"></v-form-input>
+          <v-form-input v-model="message" placeholder="message" ref="messageInput"></v-form-input>
         </v-form-group>
 
         <v-form-group inline>
@@ -57,6 +57,13 @@
     data: () => ({
       message: null
     }),
+    watch: {
+      '$store.state.messages' () {
+        this.$nextTick(() => {
+          this.scrollDown()
+        })
+      }
+    },
     methods: {
       sendMessage (message) {
         if (!message) {
@@ -68,7 +75,14 @@
       },
       leave () {
         this.$store.dispatch('leave')
+      },
+      scrollDown () {
+        const messagesDOM = this.$refs.messages.$el
+        messagesDOM.scrollTop = messagesDOM.scrollHeight
       }
+    },
+    mounted () {
+      this.$refs.messageInput.$el.focus()
     }
   }
 </script>

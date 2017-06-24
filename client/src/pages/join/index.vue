@@ -45,6 +45,10 @@
           this.$store.dispatch('join', {room, username})
         }
       }
+    },
+    mounted () {
+      this.username = this.$store.state.username
+      this.room = this.$store.state.room
     }
   }
 </script>
