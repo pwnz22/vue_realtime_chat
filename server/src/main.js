@@ -1,0 +1,25 @@
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = 3000;
+
+io.on('connection', function (socket) {
+  socket.on('enterRoom', function (room) {
+    socket.join(room);
+  });
+
+  socket.on('learveRoom', function (room) {
+    socket.leave(room);
+  });
+
+  socket.on('newMessage', function (message) {
+    console.log(message)
+    Object.keys(socket.rooms).forEach(function (room) {
+      io.sockets.in(room).emit('newMessage', message);
+    });
+  });
+});
+
+http.listen(port, function () {
+  console.log('Server has started on port*' + port);
+});
