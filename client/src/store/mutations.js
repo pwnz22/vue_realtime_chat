@@ -27,5 +27,7 @@ export default {
 
     state.messages = []
     state.hasJoined = false
+
+    Vue.router.push({name: 'join.index'})
   }
 }

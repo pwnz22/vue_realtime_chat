@@ -5,5 +5,11 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted () {
+    this.$socket.on('newMessage', message => {
+      this.$store.dispatch('newMessage', message)
+    })
+  }
+}
 </script>

@@ -8,13 +8,15 @@ io.on('connection', function (socket) {
     socket.join(room);
   });
 
-  socket.on('learveRoom', function (room) {
+  socket.on('leaveRoom', function (room) {
     socket.leave(room);
   });
 
   socket.on('newMessage', function (message) {
-    console.log(message)
     Object.keys(socket.rooms).forEach(function (room) {
+      if (room === socket.id) {
+        return
+      }
       io.sockets.in(room).emit('newMessage', message);
     });
   });
