@@ -24,11 +24,13 @@ import store from './store'
 // VueRouter
 import VueRouter from 'vue-router'
 import routes from './routes'
-Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes
 })
+
+Vue.router = router
+Vue.use(VueRouter)
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(m => m.meta.joined) && !store.state.hasJoined) {

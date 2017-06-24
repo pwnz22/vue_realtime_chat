@@ -13,12 +13,14 @@ export default {
 
     Vue.socket.emit('newMessage', message)
   },
-  [types.JOIN] (state) {
+  [types.JOIN] (state, {username, room}) {
     Vue.socket.emit('enterRoom', room)
 
     state.room = room
     state.username = username
     state.hasJoined = true
+
+    Vue.router.push({name: 'room.index'})
   },
   [types.LEAVE] (state) {
     Vue.socket.emit('leaveRoom', state.room)
